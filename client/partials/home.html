@@ -24,19 +24,19 @@
 </nav>
 
 
-<h1 style="color: rgba(255, 255, 255, 0.701961);">Search</h1>
+<h1 style="color: rgba(255, 255, 255, 0.701961);">Search by Title, Genre, or Actor</h1>
 
 
 
-<input type="text" class="form-control searchBar" ng-model="search.title" >
-<div ng-repeat="movie in movies | filter:search" class="movieGrid">  
+<input type="text" class="form-control searchBar" ng-model="search.query" ng-change="inputChange()" >
+<div ng-repeat="movie in movies | searchFilter: search" class="movieGrid">  
 <img class="moviePoster" src="{{movie.image}}"/>
 <div class="movieInfo">
   <div class="movieTitle">{{movie.title}}</div>
   <div class="movieGenre">{{movie.genre}}</div>
   <div class="movieActor">{{movie.actor}}</div>
 </div>
-<!--<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>-->
+<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>
 </div>
 
 <!-- Button trigger modal -->

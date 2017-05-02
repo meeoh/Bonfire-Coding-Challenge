@@ -3,6 +3,10 @@ angular.module('myApp').controller('homeController',
   function ($scope, $location, MovieService, AuthService) {
     $scope.search = {};
     $scope.newMovie = {};
+
+    $scope.inputChange = function(){
+
+    }
     
     MovieService.getMovies()
     .then(function(data) {
