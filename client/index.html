@@ -38,7 +38,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="!logout" ng-controller="logoutController">
-                <a ng-if="loggedIn" ng-click='logout()'>Logout</a>
+                <a ng-if="loggedIn" style="cursor: pointer;" ng-click='logout()'>Logout</a>
           </li>
           <li class="!logout" ng-controller="registerController">
                 <a ng-if="!loggedIn" href="/register">Register</a>
