@@ -140,24 +140,32 @@ angular.module('myApp').factory('MovieService', ['$q', '$timeout', '$http', 'Aut
 
       var deferred = $q.defer();
 
+      //Hit the api
       $http.get('/user/movies')
         .success(function (data, status) {
 
+          //200 result
           if (status === 200) {
             deferred.resolve(data);
           } else {
+            //reject the promise
             deferred.reject();
           }
         })
-        .catch(function (err) {})
-
+        .catch(function (err) {
+          //reject
+          deferred.reject();
+        })
+      //return the promise
       return deferred.promise;
     }
 
     function addMovie(title, genre, actor = "No actors", image = "http://i.imgur.com/vnG8qYh.jpg") {
 
+      //create the promise
       var deferred = $q.defer();
 
+      //hit the api
       $http.post('/user/createMovie', {
           title: title,
           genre: genre,
@@ -165,31 +173,38 @@ angular.module('myApp').factory('MovieService', ['$q', '$timeout', '$http', 'Aut
           image: image
         })
         .success(function (data, status) {
+          //success
           deferred.resolve(data);
-          console.log(data);
         })
         .catch(function (err) {
+          //error
           deferred.reject(data);
         });
 
+      //return the promise
       return deferred.promise;
 
     }
 
     function removeMovie(movieId) {
 
+      //create the promise
       var deferred = $q.defer();
 
+      //hit the api
       $http.post('/user/removeMovie/', {
           movieId: movieId
         })
         .success(function (data, status) {
+          //sucess
           deferred.resolve(data);
         })
         .catch(function (err) {
+          //fail
           deferred.reject(data);
         });
 
+      //return the promise
       return deferred.promise;
     }
 

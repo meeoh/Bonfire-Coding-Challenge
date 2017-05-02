@@ -51,7 +51,7 @@ myApp.run(function ($rootScope, $location, $route, AuthService) {
     });
 });
 
-
+//Directive for closing modal from controller
 myApp.directive('myModal', function () {
   return {
     restrict: 'A',
@@ -63,24 +63,24 @@ myApp.directive('myModal', function () {
   }
 });
 
+//Filter for searching based on title/actor/genre
 myApp.filter("searchFilter", function () {
   return function (input, query) {
+    //If search is empty 
     if (!query.query) {
-      // console.log(query);
       return input;
     }
-
-    console.log(input);
-    console.log(query);
     var out = [];
+    //Go over all objects we need to filter
     for (var i = 0; i < input.length; i++) {
       var currObj = input[i];
-      // console.log(currObj.title);
-      // console.log(query);
-      // console.log(currObj.title.indexOf(query.query));
+      //Split up the typed in words by spaces
       var splitArray = query.query.split(" ");
       var totalIn = true;
       for (var j = 0; j < splitArray.length; j++) {
+        //Go over all of the split up words, if the word is in any of the title/genre/actor,
+        //then its fine, but all of the words need to be in one of the title/genre/actor
+        //so you can search 'Will Smith Drama' and get multiple movies
         var currentWord = splitArray[j].toLowerCase();
         var title = currObj.title.toLowerCase().indexOf(currentWord) > -1;
         var actor = currObj.actor.toLowerCase().indexOf(currentWord) > -1;
@@ -88,17 +88,10 @@ myApp.filter("searchFilter", function () {
         if(!title && !actor && !genre) {
           totalIn = false;
         }
-        // if (title || actor || genre) {
-        //   // out.push(currObj);
-        // } else {
-        //   totalIn = false;
-        // }
       }
-
       if(totalIn) {
         out.push(currObj);
       }
-
     }
     return out;
   }
