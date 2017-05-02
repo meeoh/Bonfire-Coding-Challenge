@@ -1,17 +1,37 @@
-html {}
-
 body {
     background: url(images/lightback.png) no-repeat center center fixed;
     background-size: cover;
 }
 
+
+/*Index Nav Bar*/
+
 .indexNavBar {
     background-color: rgba(1, 1, 1, 0.6);
-    ;
 }
 
 .logout {
     cursor: pointer;
+}
+
+.navbar-brand {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    padding: 0px;
+}
+
+.navbar-brand>img {
+    height: 100%;
+    width: auto;
+    padding: 7px 14px;
+}
+
+
+/*Home Nav Bar*/
+
+.disabledNavItem {
+    pointer-events: none;
 }
 
 .homeNavBar {
@@ -23,9 +43,19 @@ body {
     color: rgba(255, 255, 255, 0.701961) !important;
 }
 
+
+/*Search Bar*/
+
 .searchBar {
     margin: 10px 0 30px 0;
 }
+
+.searchText {
+    color: rgba(255, 255, 255, 0.701961);
+}
+
+
+/*Movie Section*/
 
 .moviePoster {
     height: 267px;
@@ -47,10 +77,6 @@ body {
 .movieGrid {
     display: inline-block;
     margin: 10px 10px 10px 10px;
-}
-
-.modalError {
-    margin-top: 15px;
 }
 
 .image-container {
@@ -80,21 +106,16 @@ body {
 #removeIcon {
     left: 3px;
     top: 3px;
+    cursor: pointer;
+}
+
+
+/*Modal Stuff*/
+
+.modalError {
+    margin-top: 15px;
 }
 
 .autofill {
     margin-top: 15px;
-}
-
-.navbar-brand {
-    transform: translateX(-50%);
-    left: 50%;
-    position: absolute;
-    padding: 0px;
-}
-
-.navbar-brand>img {
-    height: 100%;
-    width: auto;
-    padding: 7px 14px;
 }

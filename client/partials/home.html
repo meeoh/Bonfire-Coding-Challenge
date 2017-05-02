@@ -24,7 +24,7 @@
             <li><a href="#" ng-click="changeSort('actor')">Actor</a></li>
           </ul>
         </li>
-        <li style="pointer-events: none;"><a href="#">{{movies.length}}</a></li>
+        <li class="disabledNavItem"><a href="#">{{movies.length}}</a></li>
 
       </ul>
 
@@ -35,7 +35,7 @@
 </nav>
 
 
-<h1 style="color: rgba(255, 255, 255, 0.701961);">Search by Title, Genre, or Actor</h1>
+<h1 class="searchText">Search by Title, Genre, or Actor</h1>
 
 
 
@@ -45,7 +45,7 @@
 
   <div class="image-container">
     <img class="moviePoster" src="{{movie.image}}" />
-    <a class="after" aria-hidden="true"><span id="removeIcon" style="cursor: pointer;" ng-click="removeMovie(movie._id)"  class="glyphicon glyphicon-remove"></span></a>
+    <a class="after" aria-hidden="true"><span id="removeIcon" ng-click="removeMovie(movie._id)"  class="glyphicon glyphicon-remove"></span></a>
   </div>
   <div class="movieInfo">
     <!--<h4 class="movieTitle">{{movie.title}}</h4>-->

@@ -26,7 +26,7 @@
         <span class="icon-bar"></span>
       </button>
       </div>
-    <a class="navbar-brand" href="/"><img src="images/logo.png" alt="" /></a>
+      <a class="navbar-brand" href="/"><img src="images/logo.png" alt="" /></a>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -38,18 +38,22 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="!logout" ng-controller="logoutController">
-                <a ng-if="loggedIn" style="cursor: pointer;" ng-click='logout()'>Logout</a>
+          <li ng-controller="logoutController">
+            <!--If logged in, give option to log out-->
+            <a ng-if="loggedIn" class="logout" ng-click='logout()'>Logout</a>
           </li>
-          <li class="!logout" ng-controller="registerController">
-                <a ng-if="!loggedIn" href="/register">Register</a>
-          </li>    
-          <li class="!logout">
-                <a ng-if="!loggedIn" href="/login">Login</a>
-          </li>           
+          <li ng-controller="registerController">
+            <!--If logged out, give option to register-->
+            <a ng-if="!loggedIn" href="/register">Register</a>
+          </li>
+          <li>
+            <!--If logged out, give option to login-->
+            <a ng-if="!loggedIn" href="/login">Login</a>
+          </li>
           <li ng-if="loggedIn" class="logout">
-                <a>{{username}}</a>
-          </li>                         
+            <!--If logged in, show username-->
+            <a>{{username}}</a>
+          </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
