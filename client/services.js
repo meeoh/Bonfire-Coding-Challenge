@@ -117,3 +117,39 @@ angular.module('myApp').factory('AuthService',
     }
 
 }]);
+
+
+
+
+angular.module('myApp').factory('MovieService',
+  ['$q', '$timeout', '$http', 'AuthService',
+  function ($q, $timeout, $http, AuthService) {
+
+    return ({
+      getMovies: getMovies
+    });
+    
+
+    function getMovies(username) {
+
+      var deferred = $q.defer();
+
+      $http.get('/user/movies')
+      .success(function(data, status) {        
+
+        if(status === 200){
+          deferred.resolve(data);
+        } else {
+          deferred.reject();
+        }
+      })
+      .catch(function(err){ 
+        console.log(err);
+      })
+
+      return deferred.promise;
+
+    }
+
+
+}]);

@@ -1,9 +1,11 @@
 var myApp = angular.module('myApp', ['ngRoute']);
 
-myApp.config(function ($routeProvider) {
+
+myApp.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html',
+      controller: 'mainController',
       access: {restricted: true}
     })
     .when('/login', {
@@ -20,17 +22,12 @@ myApp.config(function ($routeProvider) {
       controller: 'registerController',
       access: {restricted: false}
     })
-    .when('/one', {
-      template: '<h1>This is page one!</h1>',
-      access: {restricted: true}
-    })
-    .when('/two', {
-      template: '<h1>This is page two!</h1>',
-      access: {restricted: false}
-    })
     .otherwise({
       redirectTo: '/'
     });
+
+    $locationProvider.html5Mode(true);
+
 });
 
 myApp.run(function ($rootScope, $location, $route, AuthService) {

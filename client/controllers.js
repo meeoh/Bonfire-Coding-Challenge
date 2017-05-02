@@ -1,3 +1,18 @@
+angular.module('myApp').controller('mainController',
+  ['$scope', '$location', 'MovieService', 'AuthService',
+  function ($scope, $location, MovieService, AuthService) {
+
+    if(!AuthService.isLoggedIn()) {
+      return;
+    }
+    
+    MovieService.getMovies()
+    .then(function(data) {
+      console.log(data);
+    });
+}]);
+
+
 angular.module('myApp').controller('loginController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {

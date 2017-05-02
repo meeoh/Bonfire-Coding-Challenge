@@ -3,7 +3,85 @@ var router = express.Router();
 var passport = require('passport');
 
 var User = require('../models/user.js');
+var Movie = require('../models/movie.js');
 
+router.post('/createMovie', function(req, res) {
+  if(!req.body.title) {
+     return res.status(400).json({
+        err: "need a title"
+      });
+  }
+
+  if(!req.user) {
+     return res.status(400).json({
+        err: "need logged in"
+      });
+  }
+
+  var newMovie = new Movie({title: req.body.title});
+  newMovie.save(function(err,res) {
+    if(err) {
+      console.log("error");
+    } else {
+      console.log("Saved");      
+      User.update({'_id': req.user._id}, {$push: {'movies': res._id}}, {upsert: false}, function(err, data) {    
+      });
+    }
+  });
+
+  return res.status(200).json({
+    status:true
+  });
+});
+
+router.get('/movies', function(req, res) {
+  if(!req.user) {
+    return res.status(400).json({
+      err: "must be logged in"
+    });
+  }
+
+  Movie.find({
+    '_id': { $in: req.user.movies}
+  }, function(err, movies) {
+    return res.status(200).json({
+      movies: movies
+    });
+  });
+});
+
+router.post('/addMovieToCollection/', function(req, res) {
+  if(!req.user) {
+    return res.status(400).json({
+      err: "must be logged in"
+    });
+  }
+
+  console.log(req.body);
+  User.update({'_id': req.user._id}, {$push: {'movies': req.body.movieId}}, {upsert: false}, function(err, data) {    
+
+  });
+  return res.status(200).json({
+    status: true
+  });
+
+});
+
+router.post('/removeMovie/', function(req, res) {
+  if(!req.user) {
+    return res.status(400).json({
+      err: "must be logged in"
+    });
+  }
+
+  User.update({'_id': req.user._id}, {$pull: {'movies': req.body.movieId}}, function(err, data) {    
+
+  });
+  return res.status(200).json({
+    status: true
+  });
+
+});
 
 router.post('/register', function(req, res) {
   User.register(new User({ username: req.body.username }),
