@@ -4,9 +4,6 @@ angular.module('myApp').controller('homeController',
     $scope.search = {};
     $scope.newMovie = {};
 
-    $scope.inputChange = function(){
-
-    }
     
     MovieService.getMovies()
     .then(function(data) {
@@ -48,7 +45,22 @@ angular.module('myApp').controller('indexController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
-    console.log("INDEX");
+    $scope.$watch(function(){
+      return $location.$$path;
+    }, function(newValue, oldValue){
+        // console.log(newValue + ' ' + oldValue);
+        if(newValue == "/"){
+          $scope.loggedIn = true; 
+          AuthService.getUserStatus()
+          .success(function(data) {
+            // console.log(data);
+            $scope.username = data.user;  
+          });                               
+        } else {
+          $scope.loggedIn = false;
+        }
+    });
+
 
 }]);
 
@@ -89,11 +101,11 @@ angular.module('myApp').controller('logoutController',
     $scope.$watch(function(){
       return $location.$$path;
     }, function(newValue, oldValue){
-        console.log(newValue + ' ' + oldValue);
+        // console.log(newValue + ' ' + oldValue);
         if(newValue == "/"){
-          $scope.loggedIn = false;          
+          $scope.loggedIn = true;                    
         } else {
-          $scope.loggedIn = true;
+          $scope.loggedIn = false;
         }
     });
 
@@ -116,9 +128,9 @@ angular.module('myApp').controller('registerController',
       return $location.$$path;
     }, function(newValue, oldValue){
         if(newValue == "/"){
-          $scope.loggedIn = false;          
+          $scope.loggedIn = true;          
         } else {
-          $scope.loggedIn = true;
+          $scope.loggedIn = false;
         }
     });
 

@@ -136,8 +136,12 @@ router.get('/status', function(req, res) {
       status: false
     });
   }
+
+  // console.log(req.user);
   res.status(200).json({
-    status: true
+    status: true,
+    user: req.user.username
+    
   });
 });
 

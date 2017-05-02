@@ -142,13 +142,13 @@ angular.module('myApp').factory('MovieService',
 
         if(status === 200){
           deferred.resolve(data);
-          console.log(data);
+          // console.log(data);
         } else {
           deferred.reject();
         }
       })
       .catch(function(err){ 
-        console.log(err);
+        // console.log(err);
       })
 
       return deferred.promise;
