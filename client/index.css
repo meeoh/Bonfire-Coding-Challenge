@@ -119,3 +119,15 @@ body {
 .autofill {
     margin-top: 15px;
 }
+
+
+/*Login Section*/
+
+.lightText {
+    color: rgba(255, 255, 255, 0.701961);
+}
+
+.registerText {
+    margin-top: 10px;
+    font-size: 15px;
+}

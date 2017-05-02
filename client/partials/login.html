@@ -1,19 +1,19 @@
 <div class="col-md-4">
-  <h1>Login</h1>
+  <h1 class="lightText">Login</h1>
   <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
   <form class="form" ng-submit="login()">
     <div class="form-group">
-      <label>Username</label>
+      <label class="lightText">Username</label>
       <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
     </div>
     <div class="form-group">
-      <label>Password</label>
+      <label class="lightText">Password</label>
         <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
       </div>
       <div>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="disabled">Login</button>
       </div>
   </form>
 
-  <h3>Dont have an account? <a href="/register">Register</a></h3>
+  <h3 class="lightText registerText">Dont have an account? <a href="/register">Register</a></h3>
 </div>
