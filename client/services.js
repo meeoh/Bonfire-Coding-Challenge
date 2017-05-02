@@ -1,5 +1,4 @@
-angular.module('myApp').factory('AuthService',
-  ['$q', '$timeout', '$http',
+angular.module('myApp').factory('AuthService', ['$q', '$timeout', '$http',
   function ($q, $timeout, $http) {
 
     // create user variable
@@ -15,7 +14,7 @@ angular.module('myApp').factory('AuthService',
     });
 
     function isLoggedIn() {
-      if(user) {
+      if (user) {
         return true;
       } else {
         return false;
@@ -24,18 +23,18 @@ angular.module('myApp').factory('AuthService',
 
     function getUserStatus() {
       return $http.get('/user/status')
-      // handle success
-      .success(function (data) {
-        if(data.status){
-          user = true;
-        } else {
+        // handle success
+        .success(function (data) {
+          if (data.status) {
+            user = true;
+          } else {
+            user = false;
+          }
+        })
+        // handle error
+        .error(function (data) {
           user = false;
-        }
-      })
-      // handle error
-      .error(function (data) {
-        user = false;
-      });
+        });
     }
 
     function login(username, password) {
@@ -44,11 +43,13 @@ angular.module('myApp').factory('AuthService',
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/user/login',
-        {username: username, password: password})
+      $http.post('/user/login', {
+          username: username,
+          password: password
+        })
         // handle success
         .success(function (data, status) {
-          if(status === 200 && data.status){
+          if (status === 200 && data.status) {
             user = true;
             deferred.resolve();
           } else {
@@ -96,11 +97,13 @@ angular.module('myApp').factory('AuthService',
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/user/register',
-        {username: username, password: password})
+      $http.post('/user/register', {
+          username: username,
+          password: password
+        })
         // handle success
         .success(function (data, status) {
-          if(status === 200 && data.status){
+          if (status === 200 && data.status) {
             deferred.resolve();
           } else {
             deferred.reject();
@@ -116,60 +119,60 @@ angular.module('myApp').factory('AuthService',
 
     }
 
-}]);
+  }
+]);
 
 
 
-
-angular.module('myApp').factory('MovieService',
-  ['$q', '$timeout', '$http', 'AuthService',
+//Service for getting movies
+angular.module('myApp').factory('MovieService', ['$q', '$timeout', '$http', 'AuthService',
   function ($q, $timeout, $http, AuthService) {
 
-
+    //available methods
     return ({
       getMovies: getMovies,
       addMovie: addMovie,
       removeMovie: removeMovie
     });
-    
 
+    //Getting movies
     function getMovies(username) {
 
       var deferred = $q.defer();
 
       $http.get('/user/movies')
-      .success(function(data, status) {        
+        .success(function (data, status) {
 
-        if(status === 200){
-          deferred.resolve(data);
-          // console.log(data);
-        } else {
-          deferred.reject();
-        }
-      })
-      .catch(function(err){ 
-        // console.log(err);
-      })
+          if (status === 200) {
+            deferred.resolve(data);
+          } else {
+            deferred.reject();
+          }
+        })
+        .catch(function (err) {})
 
       return deferred.promise;
-
     }
 
-    function addMovie(title, genre, actor="No actors", image="http://i.imgur.com/vnG8qYh.jpg") {
+    function addMovie(title, genre, actor = "No actors", image = "http://i.imgur.com/vnG8qYh.jpg") {
 
       var deferred = $q.defer();
 
-       $http.post('/user/createMovie',
-        {title: title, genre: genre, actor: actor, image: image})
-        .success(function(data, status) {
+      $http.post('/user/createMovie', {
+          title: title,
+          genre: genre,
+          actor: actor,
+          image: image
+        })
+        .success(function (data, status) {
           deferred.resolve(data);
           console.log(data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           deferred.reject(data);
-        });        
+        });
 
-        return deferred.promise;
+      return deferred.promise;
 
     }
 
@@ -177,17 +180,19 @@ angular.module('myApp').factory('MovieService',
 
       var deferred = $q.defer();
 
-      $http.post('/user/removeMovie/',
-      {movieId: movieId})
-      .success(function(data, status) {
-        deferred.resolve(data);
-      })
-      .catch(function(err) {
-        deferred.reject(data);
-      });
+      $http.post('/user/removeMovie/', {
+          movieId: movieId
+        })
+        .success(function (data, status) {
+          deferred.resolve(data);
+        })
+        .catch(function (err) {
+          deferred.reject(data);
+        });
 
       return deferred.promise;
     }
 
 
-}]);
+  }
+]);

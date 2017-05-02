@@ -6,7 +6,7 @@ body {
 }
 
 .indexNavBar {
-    background-color: rgba(1, 1, 1, 0.7);
+    background-color: rgba(1, 1, 1, 0.6);
     ;
 }
 
@@ -74,7 +74,7 @@ body {
 
 .image-container:hover .after {
     display: block;
-    box-shadow: 0 0 0 2px #cc7b19;    
+    box-shadow: 0 0 0 2px #cc7b19;
 }
 
 #removeIcon {
@@ -84,4 +84,17 @@ body {
 
 .autofill {
     margin-top: 15px;
+}
+
+.navbar-brand {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    padding: 0px;
+}
+
+.navbar-brand>img {
+    height: 100%;
+    width: auto;
+    padding: 7px 14px;
 }
