@@ -155,7 +155,7 @@ angular.module('myApp').factory('MovieService',
 
     }
 
-    function addMovie(title, genre, actor, image="http://www.ohioattorneygeneral.gov/getattachment/c66319fd-4acb-4355-adbf-6e3f4d3f0089/Gage.aspx?width=167&height=200") {
+    function addMovie(title, genre, actor="No actors", image="http://www.ohioattorneygeneral.gov/getattachment/c66319fd-4acb-4355-adbf-6e3f4d3f0089/Gage.aspx?width=167&height=200") {
 
       var deferred = $q.defer();
 

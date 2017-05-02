@@ -39,12 +39,42 @@ body {
 
 .movieGrid {
     display: inline-block;
+    margin: 10px 10px 10px 10px;
 }
 
-.movieInfo div {
+.movieInfo {
     color: white;
+}
+
+.movieTitle {
 }
 
 .modalError {
     margin-top: 15px;
+}
+
+
+.image-container {
+    position: relative;
+}
+.image-container .after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    color: rgba(1,1,1,0.65);
+    text-decoration: none;
+}
+
+
+.image-container:hover .after {
+    display: block;    
+    box-shadow: 0 0 0 2px #cc7b19;
+}
+
+#removeIcon {
+    left: 3px;
+    top: 3px;
 }

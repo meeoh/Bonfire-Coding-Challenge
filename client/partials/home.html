@@ -2,7 +2,8 @@
   <div class="container-fluid ">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -14,13 +15,15 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class=""><a href="#">All<span class="sr-only">(current)</span></a></li>
-        <li><a href="#">By Title</a></li>      
-        <li><a href="#">{{movies.length}}</a></li>        
-  
+        <li><a href="#">By Title</a></li>
+        <li><a href="#">{{movies.length}}</a></li>
+
       </ul>
-         
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
 </nav>
 
 
@@ -28,15 +31,21 @@
 
 
 
-<input type="text" class="form-control searchBar" ng-model="search.query" ng-change="inputChange()" >
-<div ng-repeat="movie in movies | searchFilter: search" class="movieGrid">  
-<img class="moviePoster" src="{{movie.image}}"/>
-<div class="movieInfo">
-  <div class="movieTitle">{{movie.title}}</div>
-  <div class="movieGenre">{{movie.genre}}</div>
-  <div class="movieActor">{{movie.actor}}</div>
-</div>
-<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>
+<input type="text" class="form-control searchBar" ng-model="search.query" ng-change="inputChange()">
+<div ng-repeat="movie in movies | searchFilter: search" class="movieGrid">
+
+  <div class="image-container">
+  <img class="moviePoster" src="{{movie.image}}" />
+  <a class="after" aria-hidden="true"><span id="removeIcon" style="cursor: pointer;" ng-click="removeMovie(movie._id)"  class="glyphicon glyphicon-remove"></span></a>
+
+  </div>
+
+  <div class="movieInfo">
+    <h4 class="movieTitle">{{movie.title}}</h4>
+    <h6 class="movieGenre">{{movie.genre}}</h6>
+    <h6 class="movieActor">{{movie.actor}}</h6>
+  </div>
+  <!--<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>-->
 </div>
 
 <!-- Button trigger modal -->
@@ -53,21 +62,19 @@
         <h4 class="modal-title" id="myModalLabel">Add A Movie</h4>
       </div>
       <h4 class="modalError">{{modalError}}</h4>
-      <div class="modal-body">        
+      <div class="modal-body">
         <h3>Title</h3>
-        <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title" >
+        <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title">
         <h3>Genre</h3>
-        <input type="text" placeholder="Action" class="form-control" ng-model="newMovie.genre" >
+        <input type="text" placeholder="Action" class="form-control" ng-model="newMovie.genre">
         <h3>Actor</h3>
-        <input type="text" placeholder="Will Smith" class="form-control" ng-model="newMovie.actor" >
+        <input type="text" placeholder="Will Smith" class="form-control" ng-model="newMovie.actor">
         <h3>Link to Image</h3>
-        <input type="text" placeholder="" class="form-control" ng-model="newMovie.image" >
+        <input type="text" placeholder="" class="form-control" ng-model="newMovie.image">
       </div>
       <div class="modal-footer">
-        <button type="button" ng-click="addMovie(newMovie)"  class="btn btn-primary">Add</button>
+        <button type="button" ng-click="addMovie(newMovie)" class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
 </div>
-
-
