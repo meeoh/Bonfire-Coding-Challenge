@@ -125,7 +125,6 @@ angular.module('myApp').factory('MovieService',
   ['$q', '$timeout', '$http', 'AuthService',
   function ($q, $timeout, $http, AuthService) {
 
-    var allMovies = [];
 
     return ({
       getMovies: getMovies,
@@ -144,7 +143,6 @@ angular.module('myApp').factory('MovieService',
         if(status === 200){
           deferred.resolve(data);
           console.log(data);
-          allMovies = data.allMovies;
         } else {
           deferred.reject();
         }
@@ -157,12 +155,12 @@ angular.module('myApp').factory('MovieService',
 
     }
 
-    function addMovie(title) {
+    function addMovie(title, genre, actor, image="http://www.ohioattorneygeneral.gov/getattachment/c66319fd-4acb-4355-adbf-6e3f4d3f0089/Gage.aspx?width=167&height=200") {
 
       var deferred = $q.defer();
 
        $http.post('/user/createMovie',
-        {title: title})
+        {title: title, genre: genre, actor: actor, image: image})
         .success(function(data, status) {
           deferred.resolve(data);
           console.log(data);

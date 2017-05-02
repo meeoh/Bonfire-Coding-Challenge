@@ -2,18 +2,28 @@ angular.module('myApp').controller('homeController',
   ['$scope', '$location', 'MovieService', 'AuthService',
   function ($scope, $location, MovieService, AuthService) {
     $scope.search = {};
+    $scope.newMovie = {};
     
     MovieService.getMovies()
     .then(function(data) {
       $scope.movies = data.movies;
     });
 
-    $scope.addMovie = function(newMovie) {      
-      MovieService.addMovie(newMovie.title)
+    $scope.addMovie = function(newMovie) {   
+
+      console.log(newMovie);
+      if(!newMovie.title || !newMovie.genre) {
+        $scope.modalError = "Please enter all fields";        
+        return;
+      }
+
+      MovieService.addMovie(newMovie.title, newMovie.genre, newMovie.actor, newMovie.image)
       .then(function(data, status) {
         console.log("added");
         console.log(data);
         $scope.movies.push(data.movie);
+        $scope.newMovie = {};
+        $scope.dismiss();
       });
     }
 
@@ -97,6 +107,16 @@ angular.module('myApp').controller('logoutController',
 angular.module('myApp').controller('registerController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
+
+    $scope.$watch(function(){
+      return $location.$$path;
+    }, function(newValue, oldValue){
+        if(newValue == "/"){
+          $scope.loggedIn = false;          
+        } else {
+          $scope.loggedIn = true;
+        }
+    });
 
     $scope.register = function () {
 

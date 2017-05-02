@@ -18,9 +18,10 @@ router.post('/createMovie', function(req, res) {
       });
   }
 
-  var newMovie = new Movie({title: req.body.title});
+  var newMovie = new Movie({title: req.body.title, genre: req.body.genre, actor: req.body.actor, image: req.body.image});
   newMovie.save(function(err,res) {
     if(err) {
+      console.log(err);
       console.log("error");
     } else {
       console.log("Saved");      

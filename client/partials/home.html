@@ -24,42 +24,50 @@
 </nav>
 
 
-<h1>Yo!</h1>
+<h1 style="color: rgba(255, 255, 255, 0.701961);">Search</h1>
 
 
 
-<input type="text" class="form-control" ng-model="search.title" >
+<input type="text" class="form-control searchBar" ng-model="search.title" >
 <div ng-repeat="movie in movies | filter:search" class="movieGrid">  
-<img class="moviePoster" src="http://www.ohioattorneygeneral.gov/getattachment/c66319fd-4acb-4355-adbf-6e3f4d3f0089/Gage.aspx?width=167&height=200"/>
+<img class="moviePoster" src="{{movie.image}}"/>
 <div class="movieInfo">
-  <span class="movieTitle">{{movie.title}}</span>
+  <div class="movieTitle">{{movie.title}}</div>
+  <div class="movieGenre">{{movie.genre}}</div>
+  <div class="movieActor">{{movie.actor}}</div>
 </div>
 <!--<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>-->
 </div>
 
 <!-- Button trigger modal -->
-<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   Add Movie
-</button>-->
+</button>
 
 <!-- Modal -->
-<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" my-modal id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Add A Movie</h4>
       </div>
+      <h4 class="modalError">{{modalError}}</h4>
       <div class="modal-body">        
         <h3>Title</h3>
         <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title" >
-
+        <h3>Genre</h3>
+        <input type="text" placeholder="Action" class="form-control" ng-model="newMovie.genre" >
+        <h3>Actor</h3>
+        <input type="text" placeholder="Will Smith" class="form-control" ng-model="newMovie.actor" >
+        <h3>Link to Image</h3>
+        <input type="text" placeholder="" class="form-control" ng-model="newMovie.image" >
       </div>
       <div class="modal-footer">
-        <button type="button" ng-click="addMovie(newMovie)" data-dismiss="modal" class="btn btn-primary">Add</button>
+        <button type="button" ng-click="addMovie(newMovie)"  class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
-</div>-->
+</div>
 
 
