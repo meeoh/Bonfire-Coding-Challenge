@@ -1,72 +1,87 @@
-angular.module('myApp').controller('homeController',
-  ['$scope', '$location', 'MovieService', 'AuthService',
+angular.module('myApp').controller('homeController', ['$scope', '$location', 'MovieService', 'AuthService',
   function ($scope, $location, MovieService, AuthService) {
     $scope.search = {};
     $scope.newMovie = {};
+    $scope.sort = "title";
 
-    
+    var resort = function () {
+      $scope.movies = $scope.movies.sort(function (a, b) {
+        if (a[$scope.sort] < b[$scope.sort]) return -1;
+        if (a[$scope.sort] > b[$scope.sort]) return 1;
+        return 0;
+      });
+    }
+
+    $scope.changeSort = function (input) {
+      $scope.sort = input;
+      resort();
+    }
+
+
     MovieService.getMovies()
-    .then(function(data) {
-      $scope.movies = data.movies;
-    });
+      .then(function (data) {        
+        $scope.movies = data.movies;
+        resort();
+      });
 
-    $scope.addMovie = function(newMovie) {   
+    $scope.addMovie = function (newMovie) {
 
       console.log(newMovie);
-      if(!newMovie.title || !newMovie.genre) {
-        $scope.modalError = "Please enter all fields";        
+      if (!newMovie.title || !newMovie.genre) {
+        $scope.modalError = "Please enter all fields";
         return;
       }
 
       MovieService.addMovie(newMovie.title, newMovie.genre, newMovie.actor, newMovie.image)
-      .then(function(data, status) {
-        console.log("added");
-        console.log(data);
-        $scope.movies.push(data.movie);
-        $scope.newMovie = {};
-        $scope.dismiss();
-      });
+        .then(function (data, status) {
+          console.log("added");
+          console.log(data);
+          $scope.movies.push(data.movie);
+          resort();
+          $scope.newMovie = {};
+          $scope.dismiss();
+        });
     }
 
-    $scope.removeMovie = function(movieId) {
+    $scope.removeMovie = function (movieId) {
       MovieService.removeMovie(movieId)
-      .then(function(data, status) {
-        console.log("removed");
-        $scope.search.title = "";
-        var myArray = $scope.movies;
-        for(i = myArray.length-1; i>=0; i--) {
-            if( myArray[i]._id == movieId) myArray.splice(i,1);
-        }        
-      });
+        .then(function (data, status) {
+          console.log("removed");
+          $scope.search.title = "";
+          var myArray = $scope.movies;
+          for (i = myArray.length - 1; i >= 0; i--) {
+            if (myArray[i]._id == movieId) myArray.splice(i, 1);
+          }
+        });
     }
-}]);
+  }
+]);
 
-angular.module('myApp').controller('indexController',
-  ['$scope', '$location', 'AuthService',
+angular.module('myApp').controller('indexController', ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
-    $scope.$watch(function(){
+    $scope.$watch(function () {
       return $location.$$path;
-    }, function(newValue, oldValue){
-        // console.log(newValue + ' ' + oldValue);
-        if(newValue == "/"){
-          $scope.loggedIn = true; 
-          AuthService.getUserStatus()
-          .success(function(data) {
+    }, function (newValue, oldValue) {
+      // console.log(newValue + ' ' + oldValue);
+      if (newValue == "/") {
+        $scope.loggedIn = true;
+        AuthService.getUserStatus()
+          .success(function (data) {
             // console.log(data);
-            $scope.username = data.user;  
-          });                               
-        } else {
-          $scope.loggedIn = false;
-        }
+            $scope.username = data.user;
+          });
+      } else {
+        $scope.loggedIn = false;
+      }
     });
 
 
-}]);
+  }
+]);
 
 
-angular.module('myApp').controller('loginController',
-  ['$scope', '$location', 'AuthService',
+angular.module('myApp').controller('loginController', ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
     $scope.login = function () {
@@ -93,20 +108,20 @@ angular.module('myApp').controller('loginController',
 
     };
 
-}]);
+  }
+]);
 
-angular.module('myApp').controller('logoutController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {  
-    $scope.$watch(function(){
+angular.module('myApp').controller('logoutController', ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+    $scope.$watch(function () {
       return $location.$$path;
-    }, function(newValue, oldValue){
-        // console.log(newValue + ' ' + oldValue);
-        if(newValue == "/"){
-          $scope.loggedIn = true;                    
-        } else {
-          $scope.loggedIn = false;
-        }
+    }, function (newValue, oldValue) {
+      // console.log(newValue + ' ' + oldValue);
+      if (newValue == "/") {
+        $scope.loggedIn = true;
+      } else {
+        $scope.loggedIn = false;
+      }
     });
 
     $scope.logout = function () {
@@ -118,20 +133,20 @@ angular.module('myApp').controller('logoutController',
 
     };
 
-}]);
+  }
+]);
 
-angular.module('myApp').controller('registerController',
-  ['$scope', '$location', 'AuthService',
+angular.module('myApp').controller('registerController', ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
-    $scope.$watch(function(){
+    $scope.$watch(function () {
       return $location.$$path;
-    }, function(newValue, oldValue){
-        if(newValue == "/"){
-          $scope.loggedIn = true;          
-        } else {
-          $scope.loggedIn = false;
-        }
+    }, function (newValue, oldValue) {
+      if (newValue == "/") {
+        $scope.loggedIn = true;
+      } else {
+        $scope.loggedIn = false;
+      }
     });
 
     $scope.register = function () {
@@ -149,7 +164,7 @@ angular.module('myApp').controller('registerController',
           $scope.registerForm = {};
         })
         // handle error
-        .catch(function (res) {          
+        .catch(function (res) {
           $scope.error = true;
           $scope.errorMessage = res.err.message;
           $scope.disabled = false;
@@ -158,4 +173,5 @@ angular.module('myApp').controller('registerController',
 
     };
 
-}]);
+  }
+]);

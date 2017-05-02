@@ -155,7 +155,7 @@ angular.module('myApp').factory('MovieService',
 
     }
 
-    function addMovie(title, genre, actor="No actors", image="http://imgur.com/a/HuiRr") {
+    function addMovie(title, genre, actor="No actors", image="http://i.imgur.com/vnG8qYh.jpg") {
 
       var deferred = $q.defer();
 
