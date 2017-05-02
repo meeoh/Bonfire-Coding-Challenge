@@ -6,27 +6,35 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when('/', {
       templateUrl: 'partials/home.html',
       controller: 'homeController',
-      access: {restricted: true}
+      access: {
+        restricted: true
+      }
     })
     .when('/login', {
       templateUrl: 'partials/login.html',
       controller: 'loginController',
-      access: {restricted: false}
+      access: {
+        restricted: false
+      }
     })
     .when('/logout', {
       controller: 'logoutController',
-      access: {restricted: true}
+      access: {
+        restricted: true
+      }
     })
     .when('/register', {
       templateUrl: 'partials/register.html',
       controller: 'registerController',
-      access: {restricted: false}
+      access: {
+        restricted: false
+      }
     })
     .otherwise({
-      redirectTo: '/'            
+      redirectTo: '/'
     });
 
-    $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 
 });
 
@@ -34,48 +42,63 @@ myApp.run(function ($rootScope, $location, $route, AuthService) {
   $rootScope.$on('$routeChangeStart',
     function (event, next, current) {
       AuthService.getUserStatus()
-      .then(function(){
-        if (next.access.restricted && !AuthService.isLoggedIn()){
-          $location.path('/login');
-          $route.reload();
-        }
-      });
-  });
+        .then(function () {
+          if (next.access.restricted && !AuthService.isLoggedIn()) {
+            $location.path('/login');
+            $route.reload();
+          }
+        });
+    });
 });
 
 
-myApp.directive('myModal', function() {
-   return {
-     restrict: 'A',
-     link: function(scope, element, attr) {
-       scope.dismiss = function() {
-           element.modal('hide');
-       };
-     }
-   } 
+myApp.directive('myModal', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attr) {
+      scope.dismiss = function () {
+        element.modal('hide');
+      };
+    }
+  }
 });
 
-myApp.filter("searchFilter", function() {
-  return function(input,query) {
-    if(!query.query){
+myApp.filter("searchFilter", function () {
+  return function (input, query) {
+    if (!query.query) {
       // console.log(query);
       return input;
-    } 
+    }
 
     console.log(input);
     console.log(query);
     var out = [];
-    for(var i = 0; i < input.length; i++) {
+    for (var i = 0; i < input.length; i++) {
       var currObj = input[i];
       // console.log(currObj.title);
       // console.log(query);
       // console.log(currObj.title.indexOf(query.query));
-      var title = currObj.title.toLowerCase().indexOf(query.query.toLowerCase()) > -1;
-      var actor = currObj.actor.toLowerCase().indexOf(query.query.toLowerCase()) > -1;
-      var genre = currObj.genre.toLowerCase().indexOf(query.query.toLowerCase()) > -1;
-      if(title || actor || genre) {
+      var splitArray = query.query.split(" ");
+      var totalIn = true;
+      for (var j = 0; j < splitArray.length; j++) {
+        var currentWord = splitArray[j].toLowerCase();
+        var title = currObj.title.toLowerCase().indexOf(currentWord) > -1;
+        var actor = currObj.actor.toLowerCase().indexOf(currentWord) > -1;
+        var genre = currObj.genre.toLowerCase().indexOf(currentWord) > -1;
+        if(!title && !actor && !genre) {
+          totalIn = false;
+        }
+        // if (title || actor || genre) {
+        //   // out.push(currObj);
+        // } else {
+        //   totalIn = false;
+        // }
+      }
+
+      if(totalIn) {
         out.push(currObj);
       }
+
     }
     return out;
   }
