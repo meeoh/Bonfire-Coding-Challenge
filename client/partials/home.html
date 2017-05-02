@@ -14,17 +14,17 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class=""><a href="#">All<span class="sr-only">(current)</span></a></li>
+        <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Add a movie</a></li>
         <li class="dropdown">
-            <a href="#" ng-if="sort == 'title'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By Title<span class="caret"></span></a>
-            <a href="#" ng-if="sort == 'genre'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By Genre<span class="caret"></span></a>
-            <a href="#" ng-if="sort == 'actor'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By Actor<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#" ng-click="changeSort('title')">Title</a></li>
-              <li><a href="#" ng-click="changeSort('genre')">Genre</a></li>
-              <li><a href="#" ng-click="changeSort('actor')">Actor</a></li>            
-            </ul>
-          </li>
+          <a href="#" ng-if="sort == 'title'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By Title<span class="caret"></span></a>
+          <a href="#" ng-if="sort == 'genre'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By Genre<span class="caret"></span></a>
+          <a href="#" ng-if="sort == 'actor'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By Actor<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" ng-click="changeSort('title')">Title</a></li>
+            <li><a href="#" ng-click="changeSort('genre')">Genre</a></li>
+            <li><a href="#" ng-click="changeSort('actor')">Actor</a></li>
+          </ul>
+        </li>
         <li><a href="#">{{movies.length}}</a></li>
 
       </ul>
@@ -42,25 +42,22 @@
 
 <input type="text" class="form-control searchBar" ng-model="search.query" ng-change="inputChange()">
 <div ng-repeat="movie in movies | searchFilter: search" class="movieGrid">
+  <h3 class="movieTitle">{{movie.title}}</h3>
 
   <div class="image-container">
-  <img class="moviePoster" src="{{movie.image}}" />
-  <a class="after" aria-hidden="true"><span id="removeIcon" style="cursor: pointer;" ng-click="removeMovie(movie._id)"  class="glyphicon glyphicon-remove"></span></a>
-
+    <img class="moviePoster" src="{{movie.image}}" />
+    <a class="after" aria-hidden="true"><span id="removeIcon" style="cursor: pointer;" ng-click="removeMovie(movie._id)"  class="glyphicon glyphicon-remove"></span></a>
   </div>
-
   <div class="movieInfo">
-    <h4 class="movieTitle">{{movie.title}}</h4>
+    <!--<h4 class="movieTitle">{{movie.title}}</h4>-->
     <h6 class="movieGenre">{{movie.genre}}</h6>
     <h6 class="movieActor">{{movie.actor}}</h6>
   </div>
+
   <!--<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>-->
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Add Movie
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" my-modal id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -74,9 +71,12 @@
       <div class="modal-body">
         <h3>Title</h3>
         <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title">
+
+        <Button ng-click="autofill()" class="autofill btn btn-info">Autofill from IMDB API</Button>
+
         <h3>Genre</h3>
         <input type="text" placeholder="Action" class="form-control" ng-model="newMovie.genre">
-        <h3>Actor</h3>
+        <h3>Actors</h3>
         <input type="text" placeholder="Will Smith" class="form-control" ng-model="newMovie.actor">
         <h3>Link to Image</h3>
         <input type="text" placeholder="" class="form-control" ng-model="newMovie.image">

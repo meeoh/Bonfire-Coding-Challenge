@@ -1,8 +1,20 @@
-angular.module('myApp').controller('homeController', ['$scope', '$location', 'MovieService', 'AuthService',
-  function ($scope, $location, MovieService, AuthService) {
+angular.module('myApp').controller('homeController', ['$scope', '$location', 'MovieService', 'AuthService', '$http',
+  function ($scope, $location, MovieService, AuthService, $http) {
     $scope.search = {};
     $scope.newMovie = {};
     $scope.sort = "title";
+
+    $scope.autofill = function() {
+      var title = $scope.newMovie.title.replace(" ", "+")
+      $http.get("http://www.omdbapi.com/?t=" + $scope.newMovie.title)
+      .success(function(data){
+        console.log(data);
+        $scope.newMovie.title = data.Title;
+        $scope.newMovie.genre = data.Genre;
+        $scope.newMovie.actor = data.Actors.split(",")[0];
+        $scope.newMovie.image = data.Poster;
+      });
+    }
 
     var resort = function () {
       $scope.movies = $scope.movies.sort(function (a, b) {
@@ -19,7 +31,7 @@ angular.module('myApp').controller('homeController', ['$scope', '$location', 'Mo
 
 
     MovieService.getMovies()
-      .then(function (data) {        
+      .then(function (data) {
         $scope.movies = data.movies;
         resort();
       });
@@ -159,9 +171,23 @@ angular.module('myApp').controller('registerController', ['$scope', '$location',
       AuthService.register($scope.registerForm.username, $scope.registerForm.password)
         // handle success
         .then(function () {
-          $location.path('/login');
+
+          // call login from service
+          AuthService.login($scope.registerForm.username, $scope.registerForm.password)
+            // handle success
+            .then(function () {
+              $location.path('/');
+              $scope.disabled = false;
+              $scope.loginForm = {};
+              $scope.registerForm = {};
+
+            })
+            // handle error
+            .catch(function () {
+               $location.path('/login');
+            });
+
           $scope.disabled = false;
-          $scope.registerForm = {};
         })
         // handle error
         .catch(function (res) {
