@@ -7,6 +7,14 @@ angular.module('myApp').controller('homeController', ['$scope', '$location', 'Mo
     $scope.newMovie = {};
     $scope.sort = "title";
 
+    $scope.checkLength = function() {
+
+      if(!$scope.newMovie.title || $scope.newMovie.title.length < 1) {
+        return true;
+      }
+      return false;
+    }
+
     //Autofill function gets data from IMDB and fills in the modal form
     $scope.autofill = function () {
       var title = $scope.newMovie.title.replace(" ", "+")

@@ -71,7 +71,7 @@
         <h3>Title</h3>
         <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title">
 
-        <Button ng-click="autofill()" class="autofill btn btn-info">Autofill from IMDB API</Button>
+        <Button ng-disabled="checkLength()" ng-click="autofill()" class="autofill btn btn-info">Autofill from IMDB API</Button>
 
         <h3>Genre</h3>
         <input type="text" placeholder="Action" class="form-control" ng-model="newMovie.genre">
