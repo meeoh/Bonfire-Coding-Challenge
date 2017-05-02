@@ -39,7 +39,7 @@
 
 
 
-<input type="text" class="form-control searchBar" ng-model="search.query" ng-change="inputChange()">
+<input type="text" class="form-control searchBar" placeholder="Will Smith Action" ng-model="search.query" ng-change="inputChange()">
 <div ng-repeat="movie in movies | searchFilter: search" class="movieGrid">
   <h3 class="movieTitle">{{movie.title}}</h3>
 
