@@ -5,7 +5,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html',
-      controller: 'mainController',
+      controller: 'homeController',
       access: {restricted: true}
     })
     .when('/login', {
@@ -23,7 +23,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       access: {restricted: false}
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/'            
     });
 
     $locationProvider.html5Mode(true);

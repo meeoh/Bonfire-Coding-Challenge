@@ -1,5 +1,65 @@
+<nav class="navbar navbar-default homeNavBar">
+  <div class="container-fluid ">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class=""><a href="#">All<span class="sr-only">(current)</span></a></li>
+        <li><a href="#">By Title</a></li>      
+        <li><a href="#">{{movies.length}}</a></li>        
+  
+      </ul>
+         
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
 <h1>Yo!</h1>
 
-<div ng-controller="logoutController">
-  <a ng-click='logout()' class="btn btn-default">Logout</a>
+
+
+<input type="text" class="form-control" ng-model="search.title" >
+<div ng-repeat="movie in movies | filter:search" class="movieGrid">  
+<img class="moviePoster" src="http://www.ohioattorneygeneral.gov/getattachment/c66319fd-4acb-4355-adbf-6e3f4d3f0089/Gage.aspx?width=167&height=200"/>
+<div class="movieInfo">
+  <span class="movieTitle">{{movie.title}}</span>
 </div>
+<!--<a ng-click="removeMovie(movie._id)" class="btn btn-default">remove movie</a>-->
+</div>
+
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Add Movie
+</button>-->
+
+<!-- Modal -->
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">        
+        <h3>Title</h3>
+        <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title" >
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="addMovie(newMovie)" data-dismiss="modal" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+

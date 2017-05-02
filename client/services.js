@@ -125,8 +125,12 @@ angular.module('myApp').factory('MovieService',
   ['$q', '$timeout', '$http', 'AuthService',
   function ($q, $timeout, $http, AuthService) {
 
+    var allMovies = [];
+
     return ({
-      getMovies: getMovies
+      getMovies: getMovies,
+      addMovie: addMovie,
+      removeMovie: removeMovie
     });
     
 
@@ -139,6 +143,8 @@ angular.module('myApp').factory('MovieService',
 
         if(status === 200){
           deferred.resolve(data);
+          console.log(data);
+          allMovies = data.allMovies;
         } else {
           deferred.reject();
         }
@@ -149,6 +155,40 @@ angular.module('myApp').factory('MovieService',
 
       return deferred.promise;
 
+    }
+
+    function addMovie(title) {
+
+      var deferred = $q.defer();
+
+       $http.post('/user/createMovie',
+        {title: title})
+        .success(function(data, status) {
+          deferred.resolve(data);
+          console.log(data);
+        })
+        .catch(function(err) {
+          deferred.reject(data);
+        });        
+
+        return deferred.promise;
+
+    }
+
+    function removeMovie(movieId) {
+
+      var deferred = $q.defer();
+
+      $http.post('/user/removeMovie/',
+      {movieId: movieId})
+      .success(function(data, status) {
+        deferred.resolve(data);
+      })
+      .catch(function(err) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     }
 
 

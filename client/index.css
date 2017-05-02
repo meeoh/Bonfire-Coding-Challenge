@@ -1,0 +1,42 @@
+html {
+}
+
+body {
+  background: url(images/lightback.png) no-repeat center center fixed; 
+  background-size: cover;
+}
+
+.indexNavBar {
+    background-color: rgba(1,1,1,0.7);;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+.homeNavBar {
+    background-color: rgba(1,1,1,0.2);
+}
+
+.homeNavBar a {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.701961) !important;
+}
+
+.moviePoster {
+    height: 267px;
+    max-width: 185px;
+}
+
+.movieInfo {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.movieGrid {
+    display: inline-block;
+}
+
+.movieTitle {
+    color: white;
+}

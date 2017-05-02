@@ -30,7 +30,7 @@ router.post('/createMovie', function(req, res) {
   });
 
   return res.status(200).json({
-    status:true
+    movie: newMovie
   });
 });
 
