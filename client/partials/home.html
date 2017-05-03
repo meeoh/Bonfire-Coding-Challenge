@@ -45,7 +45,10 @@
 
   <div class="image-container">
     <img class="moviePoster" src="{{movie.image}}" />
-    <a class="after" aria-hidden="true"><span id="removeIcon" ng-click="removeMovie(movie._id)"  class="glyphicon glyphicon-remove"></span></a>
+    <a class="after" aria-hidden="true">
+      <span id="removeIcon" ng-click="removeMovie(movie._id)" class="glyphicon glyphicon-remove"></span>
+      <button id="moreInfo" ng-click="moreInfo(movie)" class="btn btn-primary" href="#contentModal" data-toggle="modal" data-target="#contentModal">View Info</button>
+    </a>
   </div>
   <div class="movieInfo">
     <!--<h4 class="movieTitle">{{movie.title}}</h4>-->
@@ -59,6 +62,8 @@
 
 
 <!-- Modal -->
+
+<!--Add movie modal-->
 <div class="modal fade" my-modal id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -66,7 +71,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add A Movie</h4>
       </div>
-      <h4 class="modalError">{{modalError}}</h4>
+      <h4 ng-if="modalError" class="modalError">{{modalError}}</h4>
       <div class="modal-body">
         <h3>Title</h3>
         <input type="text" placeholder="The godfather" class="form-control" ng-model="newMovie.title">
@@ -82,6 +87,37 @@
       </div>
       <div class="modal-footer">
         <button type="button" ng-click="addMovie(newMovie)" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Content modal-->
+<div class="modal fade" my-modal id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="contentModalLabel">More Info (Also pulled from the IMDB API)</h4>
+      </div>
+      <div class="modal-body">
+        <h3>Awards</h3>
+        <p>{{activeContent.awards}}</p>
+
+        <h3>Director</h3>
+        <p>{{activeContent.director}}</p>
+
+        <h3>Plot</h3>
+        <p>{{activeContent.plot}}</p>
+
+        <h3>Runtime</h3>
+        <p>{{activeContent.runtime}}</p>
+
+        <h3>Rating</h3>
+        <p>{{activeContent.rating}}/10</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" >Close</button>
       </div>
     </div>
   </div>

@@ -6,10 +6,24 @@ angular.module('myApp').controller('homeController', ['$scope', '$location', 'Mo
     $scope.search = {};
     $scope.newMovie = {};
     $scope.sort = "title";
+    $scope.activeContent = {};
 
-    $scope.checkLength = function() {
+    $scope.moreInfo = function (movie) {
+      $http.get("http://www.omdbapi.com/?t=" + movie.title)
+        .success(function (data) {          
+          console.log(data);
+          $scope.activeContent.awards = data.Awards;
+          $scope.activeContent.director = data.Director;
+          $scope.activeContent.plot = data.Plot;
+          $scope.activeContent.runtime = data.Runtime;
+          $scope.activeContent.rating = data.imdbRating;
+        });
+    }
 
-      if(!$scope.newMovie.title || $scope.newMovie.title.length < 1) {
+    //Checklength function checks weather or not to disable the autofill
+    //from imdb button
+    $scope.checkLength = function () {
+      if (!$scope.newMovie.title || $scope.newMovie.title.length < 1) {
         return true;
       }
       return false;

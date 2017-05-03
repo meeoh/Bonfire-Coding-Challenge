@@ -109,6 +109,12 @@ body {
     cursor: pointer;
 }
 
+#moreInfo {
+    left: 17%;
+    top: 40%;
+    position: relative;
+}
+
 
 /*Modal Stuff*/
 
