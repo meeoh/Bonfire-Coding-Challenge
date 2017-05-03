@@ -19,6 +19,7 @@ body {
     left: 50%;
     position: absolute;
     padding: 0px;
+    top: 0;
 }
 
 .navbar-brand>img {
@@ -27,6 +28,11 @@ body {
     padding: 7px 14px;
 }
 
+@media only screen and (max-width: 475px) {
+    .navbar-brand {
+        display: none;
+    }
+}
 
 /*Home Nav Bar*/
 
