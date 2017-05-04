@@ -71,7 +71,7 @@ angular.module('myApp').controller('homeController', ['$scope', '$location', 'Mo
       if (!newMovie.title || !newMovie.genre) {
         $scope.modalError = "Please enter all fields";
         return;
-      }
+      }      
 
       //Use service to create and add the movie
       MovieService.addMovie(newMovie.title, newMovie.genre, newMovie.actor, newMovie.image)
