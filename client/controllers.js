@@ -82,6 +82,8 @@ angular.module('myApp').controller('homeController', ['$scope', '$location', 'Mo
           //Empty the modal and close it
           $scope.newMovie = {};
           $scope.dismiss();
+          $scope.modalError = "";
+
         });
     }
 
